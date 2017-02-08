@@ -53,7 +53,7 @@ attackPower: 0,
 counterAttackPower: 20,
 
 attack: function(){
-	DarthVeider.attackPower += 10
+	return DarthVeider.attackPower += 3
 },
 
 counterAttack: function(){
@@ -68,7 +68,7 @@ attackPower: 0,
 counterAttackPower: 20,
 
 attack: function(){
-	DarthMaul.attackPower += 8
+	return DarthMaul.attackPower += 3
 },
 
 counterAttack: function(){
@@ -90,7 +90,7 @@ var defenderHealth;
 //First wait for HTML and CSS content to be loaded 
 
 $("document").ready(function(){
-
+	// $(".obiwan").append(Obiwan.healthPoints);
 
 //Attack must get the other enemy health points and lower it 
 //Attack power is increasing every time it attacks 
@@ -155,22 +155,26 @@ $("document").ready(function(){
 		//Update defender health 
 		switch(defender){
 			case "defender luke":
-			defenderHealth = Luke.healthPoints;
+			console.log(Luke.healthPoints);
 			Luke.healthPoints -= fighterAttack;
+			console.log(Luke.healthPoints);
+			defenderHealth = Luke.healthPoints;
+			console.log(defenderHealth)
 			break;
 			case "defender obiwan":
-			defenderHealth = Obiwan.healthPoints;
 			Obiwan.healthPoints -= fighterAttack;
+			defenderHealth = Obiwan.healthPoints;
+			console.log(defenderHealth);
 			break;
 			case "defender darthMaul":
 			defenderAtack = DarthMaul.counterAttack();
-			defenderHealth = DarthMaul.healthPoints;
 			DarthMaul.healthPoints -= fighterAttack;
+			defenderHealth = DarthMaul.healthPoints;
 			break;
 			case "defender darthVeider":
 			defenderAtack = DarthVeider.counterAttack();
-			defenderHealth = DarthVeider.healthPoints;
 			DarthVeider.healthPoints -= fighterAttack;
+			defenderHealth = DarthVeider.healthPoints;
 			break;
 			default:
 			break;
@@ -178,9 +182,9 @@ $("document").ready(function(){
 		console.log("Defender Health" + defenderHealth);
 	
 
-		fighterHealth = fighterHealth - defenderAtack;
-		console.log(defenderAtack);
-		defenderHealth = defenderHealth - fighterAttack;
+		//fighterHealth = fighterHealth - defenderAttack;
+		console.log(defenderAttack);
+		//defenderHealth = defenderHealth - fighterAttack;
 
 		if(fighterHealth <= 0){
 			isDefender = false;
@@ -201,6 +205,11 @@ $("document").ready(function(){
 
 		$("#fighterHealth").html("Health:  " + fighterHealth);
 		$("#defenderHealth").html("Health:  " + defenderHealth);
+
+
+		if($(".enemies").children().length == 1){
+		 $(".defender").append("<h1 class = btn-success>YOU WIN</h1>");
+		}
 
 
 		
@@ -286,15 +295,6 @@ var isDefender = false;
 			isDefender = true;
 		}
 	});
-
-
-if($(".defender").hasClass("luke obiwan darthMaul darthVeider"))
-		if(!($(".figther").hasClass("luke obiwan darthMaul darthVeider"))) {
-			isFighter = false; 
-			console.log(isFighter);
-		}
-
-
 
 
 });
