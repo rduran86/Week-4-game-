@@ -17,13 +17,16 @@
     When that happens, the player's character will lose some of their `HP`. 
     These points are shown at the bottom of the player character's picture.*/
 
+
+
+
 var Luke = {
-healthPoints: 200,
+healthPoints: 120,
 attackPower: 0,
-counterAttackPower: 20,
+counterAttackPower: 8,
 
 attack: function(){
-	return	Luke.attackPower += 5
+	return	Luke.attackPower += 7
 },
 
 counterAttack: function(){
@@ -33,12 +36,12 @@ counterAttack: function(){
 };
 
 var Obiwan = {
-healthPoints: 300,
+healthPoints: 130,
 attackPower: 0,
-counterAttackPower: 20,
+counterAttackPower: 10,
 
 attack: function(){
-	return	Obiwan.attackPower += 3
+	return	Obiwan.attackPower += 8
 },
 
 counterAttack: function(){
@@ -48,12 +51,12 @@ counterAttack: function(){
 };
 
 var DarthVeider = {
-healthPoints: 200,
+healthPoints: 150,
 attackPower: 0,
-counterAttackPower: 20,
+counterAttackPower: 10,
 
 attack: function(){
-	return DarthVeider.attackPower += 3
+	return DarthVeider.attackPower += 10
 },
 
 counterAttack: function(){
@@ -65,10 +68,10 @@ counterAttack: function(){
 var DarthMaul = {
 healthPoints: 200,
 attackPower: 0,
-counterAttackPower: 20,
+counterAttackPower: 15,
 
 attack: function(){
-	return DarthMaul.attackPower += 3
+	return DarthMaul.attackPower += 8
 },
 
 counterAttack: function(){
@@ -84,20 +87,145 @@ var fighterAttack;
 var defenderAttack;
 var fighterHealth;
 var defenderHealth;
+var isFighter = false;	
+var isDefender = false;
+
+
 
 
 
 //First wait for HTML and CSS content to be loaded 
 
-$("document").ready(function(){
-	// $(".obiwan").append(Obiwan.healthPoints);
 
-//Attack must get the other enemy health points and lower it 
-//Attack power is increasing every time it attacks 
-	$(".attack").on("click", function(){
+$("document").ready(function(){
+
+	 $(".characters").html("Select your character");	
+	  var audioElementStart = document.createElement("audio");
+      audioElementStart.setAttribute("src", "http://www.mediacollege.com/downloads/sound-effects/star-wars/darthvader/darthvader_anger.wav");
+      audioElementStart.play();	
+
+
+	  $(".characters").html("Select your character");	
+	  var audioElementWin = document.createElement("audio");
+      audioElementWin.setAttribute("src", "http://www.mediacollege.com/downloads/sound-effects/star-wars/obiwan/obiwan_theforce.wav");
+     
+
+	  var audioElementLose = document.createElement("audio");
+      audioElementLose.setAttribute("src", "http://www.mediacollege.com/downloads/sound-effects/star-wars/darthvader/darthvader_dontunderestimate.wav");
+
+      var audioElementAttack = document.createElement("audio");
+      audioElementAttack.setAttribute("src", "http://www.mediacollege.com/downloads/sound-effects/alien/laser-01.wav");
+
+       var audioElementOponent = document.createElement("audio");
+      audioElementOponent.setAttribute("src", "http://www.mediacollege.com/downloads/sound-effects/star-wars/chewbacca/chewbacca_01.wav");
+
+
+//on click move the image from selection to fighter or defender 
+
+	$(".obiwan").on("click", function(){
+
+		if(isFighter === false && isDefender === false){	
+			$(this).addClass("btn-success");
+			$(this).removeClass("obiwan");
+			$(".fighter").append(this).addClass("obiwan");
+			$("#fighterHealth").html("Health:  " + Obiwan.healthPoints);
+			isFighter = true;
+			$(".characters").html("Select your oponent");
+			}
+			else if (isFighter === true && isDefender === false && !($(".fighter").hasClass('fighter obiwan'))){
+			$(this).addClass("btn-danger");
+			$(".defender").append(this).addClass("obiwan");
+			$(".fighter").removeClass("obiwan");
+			$("#defenderHealth").html("Health:  " + Obiwan.healthPoints);
+			isDefender = true;
+			$(".characters").html("Enemies available to play");
+			}
 	
+	});
+	
+
+	$(".luke").on("click", function(){
+	
+		if(isFighter === false && isDefender === false){	
+			$(this).addClass("btn-success");
+			$(".fighter").append(this).addClass("luke");
+			$(".defender").removeClass("luke");
+			$("#fighterHealth").html("Health:  " + Luke.healthPoints);
+			isFighter = true;
+			$(".characters").html("Select the oponent");
+			}
+		else if(isFighter === true && isDefender === false && !($(".fighter").hasClass('fighter luke')) ) {
+			$(this).addClass("btn-danger");
+			$(".defender").append(this).addClass("luke");
+			$(".fighter").removeClass("luke");
+			$("#defenderHealth").html("Health:  " + Luke.healthPoints);
+			isDefender = true;
+			$(".characters").html("Enemies available to play");
+			}
+	
+
+	});
+
+
+	$(".darthMaul").on("click", function(){
+		
+		if(isFighter === false && isDefender === false){	
+			$(this).addClass("btn-success");
+			$(".fighter").append(this).addClass("darthMaul");
+			$(".defender").removeClass("darthMaul");
+			$("#fighterHealth").html("Health:  " + DarthMaul.healthPoints);
+			isFighter = true;
+			(".characters").html("Select the oponent");
+			}
+		else if(isFighter === true && isDefender === false && !($(".fighter").hasClass('fighter darthMaul')) ) {
+			$(this).addClass("btn-danger");
+			$(".defender").append(this).addClass("darthMaul");
+			$(".fighter").removeClass("darthMaul");
+			$("#defenderHealth").html("Health:  " + DarthMaul.healthPoints);
+			// isFighter = false;
+			isDefender = true;
+			$(".characters").html("Enemies available to play");
+			}
+	
+	});
+
+
+	$(".darthVeider").on("click", function(){
+	
+		if(isFighter === false && isDefender === false){	
+			$(this).addClass("btn-success");
+			$(".fighter").append(this).addClass("darthVeider");
+			$(".defender").removeClass("darthVeider");
+			$("#fighterHealth").html("Health:  " + DarthVeider.healthPoints);
+			isFighter = true;
+			$(".characters").html("Select the oponent");
+			}
+		else if(isFighter === true && isDefender === false && !($(".fighter").hasClass('fighter darthVeider'))) {
+			$(this).addClass("btn-danger");
+			$(".defender").append(this).addClass("darthVeider");
+			$(".fighter").removeClass("darthVeider");
+			$("#defenderHealth").html("Health:  " + DarthVeider.healthPoints);
+			isDefender = true;	
+			$(".characters").html("Enemies available to play");
+		}
+
+
+	});
+
+//Attack must get the enemy's health points and lower them 
+//Attack power is increasing every time it attacks 
+
+//if there is a fighter and a defender then the attack button maybe clicked. 
+	$(".attack").on("click", function(){
+		
+	// Get the info to see if fighter/defender is occupied
+	//only attack when there is a fighter and a defender selected
+	if (isFighter === true && isDefender === true){
+
+		audioElementAttack.play();
 		//Determine fighter to assign attack power and health points
 		//Determine defender to assign attack power and health points
+
 		fighter = $(".fighter").attr('class');	
 		defender = $(".defender").attr('class');
 		console.log(fighter + " :: " + defender);
@@ -153,6 +281,7 @@ $("document").ready(function(){
 		console.log("Fighter health" + fighterHealth);
 		
 		//Update defender health 
+
 		switch(defender){
 			case "defender luke":
 			console.log(Luke.healthPoints);
@@ -179,122 +308,46 @@ $("document").ready(function(){
 			default:
 			break;
 		}
-		console.log("Defender Health" + defenderHealth);
 	
-
-		//fighterHealth = fighterHealth - defenderAttack;
-		console.log(defenderAttack);
-		//defenderHealth = defenderHealth - fighterAttack;
-
+	
+		//if the fighter's health points are equal or below zero fighter loses!
 		if(fighterHealth <= 0){
 			isDefender = false;
 			$(".fighter").empty();
 			$(".fighter").append("<h1 class = 'btn-danger'>YOU LOSE</h1>");
-			fighterHealth = 0;
+			audioElementLose.play();
+		 	//reload the page after 3 seconds to allow the sound to play and then reset 
+			setTimeout(function(){history.go(0);}, 4000);
 
 		}	
 
-
+		//if the defender health points are less than or equal to zero remove defender from screen 
 		if(defenderHealth <= 0){
 			isDefender = false;
 			$(".defender").empty();
-			console.log($(".enemies").hasClass('obiwan'));
-			console.log($(".enemies").children('img').hasClass(defender));
-			defenderHealth = 0;
+			audioElementOponent.play();
+			defenderHealth = 0;		
 		}
 
+		//Update fighter and defender health points every time there is an attack
 		$("#fighterHealth").html("Health:  " + fighterHealth);
 		$("#defenderHealth").html("Health:  " + defenderHealth);
 
-
-		if($(".enemies").children().length == 1){
-		 $(".defender").append("<h1 class = btn-success>YOU WIN</h1>");
+		//if there are no more enemies to play against the figher wins 
+		if(($(".enemies").children().length == 1) && fighterHealth > 0) {
+		 	$(".defender").append("<h1 class = btn-success>YOU WIN</h1>");
+		 	audioElementWin.play();
+		 	//reload the page after 5 seconds to allow the sound to play and then reset 
+			setTimeout(function(){history.go(0);}, 5000);
 		}
 
-
+	}
 		
 
 	});
 
 
-// Get the info to see if fighter/defender is occupied
-var isFighter = false;	
-var isDefender = false;
-
-//on clike move the image from selection to fighter or defender 
-	$(".obiwan").on("click", function(){
-
-		if(isFighter == false){	
-			$(this).addClass("btn-success");
-			$(".fighter").append(this).addClass("obiwan");
-			$("#fighterHealth").html("Health:  " + Obiwan.healthPoints);
-
-			isFighter = true
-			}
-		else if(isDefender == false) {
-			$(this).addClass("btn-danger");
-			$(".defender").append(this).addClass("obiwan");
-			$(".fighter").removeClass("obiwan");
-			$("#defenderHealth").html("Health:  " + Obiwan.healthPoints);
-			isDefender = true;
-		}
-	});
-
-
-	$(".luke").on("click", function(){
-	
-		if(isFighter == false){	
-			$(this).addClass("btn-success");
-			$(".fighter").append(this).addClass("luke");
-			$(".defender").removeClass("luke");
-			$("#fighterHealth").html("Health:  " + Luke.healthPoints);
-			isFighter = true
-			}
-		else if(isDefender == false) {
-			$(this).addClass("btn-danger");
-			$(".defender").append(this).addClass("luke");
-			$(".fighter").removeClass("luke");
-			$("#defenderHealth").html("Health:  " + Luke.healthPoints);
-			isDefender = true;
-		}
-	});
-
-	$(".darthMaul").on("click", function(){
-		
-		if(isFighter == false){	
-			$(this).addClass("btn-success");
-			$(".fighter").append(this).addClass("darthMaul");
-			$(".defender").removeClass("darthMaul");
-			$("#fighterHealth").html("Health:  " + DarthMaul.healthPoints);
-			isFighter = true
-			}
-		else if(isDefender == false) {
-			$(this).addClass("btn-danger");
-			$(".defender").append(this).addClass("darthMaul");
-			$(".fighter").removeClass("darthMaul");
-			$("#defenderHealth").html("Health:  " + DarthMaul.healthPoints);
-			isDefender = true;
-		}
-	});
-
-
-	$(".darthVeider").on("click", function(){
-	
-		if(isFighter == false){	
-			$(this).addClass("btn-success");
-			$(".fighter").append(this).addClass("darthVeider");
-			$(".defender").removeClass("darthVeider");
-			$("#fighterHealth").html("Health:  " + DarthVeider.healthPoints);
-			isFighter = true
-			}
-		else if(isDefender == false) {
-			$(this).addClass("btn-danger");
-			$(".defender").append(this).addClass("darthVeider");
-			$(".fighter").removeClass("darthVeider");
-			$("#defenderHealth").html("Health:  " + DarthVeider.healthPoints);
-			isDefender = true;
-		}
-	});
+   
 
 
 });
